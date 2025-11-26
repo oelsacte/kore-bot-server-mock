@@ -1,0 +1,293 @@
+{
+  "defaultResponses": {
+    "hello": {
+      "type": "bot_response",
+      "from": "bot",
+      "message": [{
+        "type": "text",
+        "cInfo": {
+          "body": "¡Hola! Soy un bot mock. ¿En qué puedo ayudarte?",
+          "attachments": []
+        },
+        "component": {
+          "type": "text",
+          "payload": {
+            "text": "¡Hola! Soy un bot mock. ¿En qué puedo ayudarte?"
+          }
+        }
+      }]
+    },
+    "help": {
+      "type": "bot_response",
+      "from": "bot",
+      "message": [{
+        "type": "text",
+        "cInfo": {
+          "body": "Puedo ayudarte con varias cosas. ¿Qué necesitas?",
+          "attachments": []
+        },
+        "component": {
+          "type": "text",
+          "payload": {
+            "text": "Puedo ayudarte con varias cosas. ¿Qué necesitas?"
+          }
+        }
+      }]
+    },
+    "default": {
+      "type": "bot_response",
+      "from": "bot",
+      "message": [{
+        "type": "text",
+        "cInfo": {
+          "body": "He recibido tu mensaje. Soy un servidor mock para pruebas.",
+          "attachments": []
+        },
+        "component": {
+          "type": "text",
+          "payload": {
+            "text": "He recibido tu mensaje. Soy un servidor mock para pruebas."
+          }
+        }
+      }]
+    }
+  },
+  "templates": {
+    "buttons": {
+      "type": "bot_response",
+      "from": "bot",
+      "message": [{
+        "type": "template",
+        "cInfo": {
+          "body": "Selecciona una opción:",
+          "attachments": []
+        },
+        "component": {
+          "type": "template",
+          "payload": {
+            "template_type": "button",
+            "text": "Selecciona una opción:",
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Opción 1",
+                "payload": "option_1"
+              },
+              {
+                "type": "postback",
+                "title": "Opción 2",
+                "payload": "option_2"
+              },
+              {
+                "type": "web_url",
+                "title": "Más información",
+                "url": "https://kore.ai"
+              }
+            ]
+          }
+        }
+      }]
+    },
+    "quickReplies": {
+      "type": "bot_response",
+      "from": "bot",
+      "message": [{
+        "type": "template",
+        "cInfo": {
+          "body": "Respuestas rápidas:",
+          "attachments": []
+        },
+        "component": {
+          "type": "template",
+          "payload": {
+            "template_type": "quick_replies",
+            "text": "¿Qué te gustaría hacer?",
+            "quick_replies": [
+              {
+                "content_type": "text",
+                "title": "Ver productos",
+                "payload": "ver_productos"
+              },
+              {
+                "content_type": "text",
+                "title": "Contactar soporte",
+                "payload": "contactar_soporte"
+              },
+              {
+                "content_type": "text",
+                "title": "Ver precios",
+                "payload": "ver_precios"
+              }
+            ]
+          }
+        }
+      }]
+    },
+    "list": {
+      "type": "bot_response",
+      "from": "bot",
+      "message": [{
+        "type": "template",
+        "cInfo": {
+          "body": "Lista de elementos:",
+          "attachments": []
+        },
+        "component": {
+          "type": "template",
+          "payload": {
+            "template_type": "list",
+            "elements": [
+              {
+                "title": "Elemento 1",
+                "subtitle": "Descripción del elemento 1",
+                "image_url": "https://via.placeholder.com/150",
+                "buttons": [
+                  {
+                    "type": "postback",
+                    "title": "Seleccionar",
+                    "payload": "elemento_1"
+                  }
+                ]
+              },
+              {
+                "title": "Elemento 2",
+                "subtitle": "Descripción del elemento 2",
+                "image_url": "https://via.placeholder.com/150",
+                "buttons": [
+                  {
+                    "type": "postback",
+                    "title": "Seleccionar",
+                    "payload": "elemento_2"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }]
+    },
+    "carousel": {
+      "type": "bot_response",
+      "from": "bot",
+      "message": [{
+        "type": "template",
+        "cInfo": {
+          "body": "Carrusel de tarjetas:",
+          "attachments": []
+        },
+        "component": {
+          "type": "template",
+          "payload": {
+            "template_type": "carousel",
+            "elements": [
+              {
+                "title": "Tarjeta 1",
+                "subtitle": "Esta es la primera tarjeta",
+                "image_url": "https://via.placeholder.com/300x200",
+                "buttons": [
+                  {
+                    "type": "postback",
+                    "title": "Ver más",
+                    "payload": "card_1"
+                  }
+                ]
+              },
+              {
+                "title": "Tarjeta 2",
+                "subtitle": "Esta es la segunda tarjeta",
+                "image_url": "https://via.placeholder.com/300x200",
+                "buttons": [
+                  {
+                    "type": "postback",
+                    "title": "Ver más",
+                    "payload": "card_2"
+                  }
+                ]
+              },
+              {
+                "title": "Tarjeta 3",
+                "subtitle": "Esta es la tercera tarjeta",
+                "image_url": "https://via.placeholder.com/300x200",
+                "buttons": [
+                  {
+                    "type": "postback",
+                    "title": "Ver más",
+                    "payload": "card_3"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }]
+    }
+  },
+  "keywordResponses": {
+    "hola": "defaultResponses.hello",
+    "ayuda": "defaultResponses.help",
+    "help": "defaultResponses.help",
+    "botones": "templates.buttons",
+    "buttons": "templates.buttons",
+    "opciones": "templates.buttons",
+    "quick": "templates.quickReplies",
+    "rapido": "templates.quickReplies",
+    "lista": "templates.list",
+    "list": "templates.list",
+    "carousel": "templates.carousel",
+    "carrusel": "templates.carousel",
+    "tarjetas": "templates.carousel"
+  },
+  "sequentialResponses": [
+    {
+      "type": "bot_response",
+      "from": "bot",
+      "message": [{
+        "type": "text",
+        "cInfo": {
+          "body": "Esta es la primera respuesta en secuencia.",
+          "attachments": []
+        },
+        "component": {
+          "type": "text",
+          "payload": {
+            "text": "Esta es la primera respuesta en secuencia."
+          }
+        }
+      }]
+    },
+    {
+      "type": "bot_response",
+      "from": "bot",
+      "message": [{
+        "type": "text",
+        "cInfo": {
+          "body": "Esta es la segunda respuesta en secuencia.",
+          "attachments": []
+        },
+        "component": {
+          "type": "text",
+          "payload": {
+            "text": "Esta es la segunda respuesta en secuencia."
+          }
+        }
+      }]
+    },
+    {
+      "type": "bot_response",
+      "from": "bot",
+      "message": [{
+        "type": "text",
+        "cInfo": {
+          "body": "Esta es la tercera respuesta en secuencia.",
+          "attachments": []
+        },
+        "component": {
+          "type": "text",
+          "payload": {
+            "text": "Esta es la tercera respuesta en secuencia."
+          }
+        }
+      }]
+    }
+  ]
+}
