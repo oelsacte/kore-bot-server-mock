@@ -58,6 +58,14 @@ app.use((req, res, next) => {
 // Handler de mensajes
 const messageHandler = new MessageHandler();
 
+// ===== ESTADÍSTICAS DE CONEXIÓN =====
+const connectionStats = {
+  total: 0,
+  active: 0,
+  closed: 0,
+  errors: 0
+};
+
 // ===== API REST ENDPOINTS =====
 
 /**
@@ -282,6 +290,33 @@ app.get('/health', (req, res) => {
   });
 });
 
+/**
+ * WebSocket Statistics endpoint
+ */
+app.get('/ws-stats', (req, res) => {
+  const activeClients = [];
+  wss.clients.forEach((ws) => {
+    if (ws.readyState === WebSocket.OPEN) {
+      const duration = Date.now() - new Date(ws.connectionTime).getTime();
+      activeClients.push({
+        ip: ws.clientIp,
+        connectedFor: `${(duration / 1000).toFixed(2)}s`,
+        isAlive: ws.isAlive
+      });
+    }
+  });
+
+  res.json({
+    status: 'ok',
+    websocket: {
+      port: WS_PORT,
+      statistics: connectionStats,
+      activeClients: activeClients,
+      timestamp: new Date().toISOString()
+    }
+  });
+});
+
 // Iniciar servidor HTTP
 const httpServer = app.listen(HTTP_PORT, () => {
   console.log(`\n${'='.repeat(70)}`);
@@ -302,6 +337,7 @@ const httpServer = app.listen(HTTP_PORT, () => {
   console.log(`   GET  http://localhost:${HTTP_PORT}/api/chat/history`);
   console.log(`   GET  http://localhost:${HTTP_PORT}/api/websdkthemes/:botId/activetheme`);
   console.log(`   GET  http://localhost:${HTTP_PORT}/health`);
+  console.log(`   GET  http://localhost:${HTTP_PORT}/ws-stats  (WebSocket statistics)`);
   console.log(`\n${'='.repeat(70)}\n`);
   console.log('💡 Para conectar tu proyecto del SDK:');
   console.log(`   koreAPIUrl: "http://localhost:${HTTP_PORT}/api/"`);
@@ -313,8 +349,29 @@ const httpServer = app.listen(HTTP_PORT, () => {
 
 const wss = new WebSocket.Server({ port: WS_PORT });
 
-wss.on('connection', (ws) => {
-  console.log('[WS] 🔗 New client connected');
+wss.on('connection', (ws, req) => {
+  const clientIp = req.socket.remoteAddress;
+  const connectionTime = new Date().toISOString();
+  
+  connectionStats.total++;
+  connectionStats.active++;
+  
+  console.log('[WS] 🔗 New client connected:', {
+    ip: clientIp,
+    time: connectionTime,
+    totalConnections: connectionStats.total,
+    activeConnections: connectionStats.active
+  });
+
+  // Variable para rastrear si la conexión está viva
+  ws.isAlive = true;
+  ws.connectionTime = connectionTime;
+  ws.clientIp = clientIp;
+
+  // Manejar pong para keepalive
+  ws.on('pong', () => {
+    ws.isAlive = true;
+  });
 
   // Enviar mensaje "hello" al conectar
   setTimeout(() => {
@@ -354,13 +411,33 @@ wss.on('connection', (ws) => {
         // Generar respuesta del bot
         const response = messageHandler.processMessage(message);
         
-        // Enviar respuesta
-        ws.send(JSON.stringify(response));
-        console.log('[WS] 📤 Sent bot response:', {
-          messageId: response.messageId,
-          type: response.type,
-          body: response.message[0]?.cInfo?.body?.substring(0, 50) + '...'
-        });
+        // Si es un array de respuestas múltiples, enviar cada una con delay
+        if (Array.isArray(response)) {
+          console.log(`[WS] 📤 Sending ${response.length} bot responses`);
+          for (let i = 0; i < response.length; i++) {
+            const singleResponse = response[i];
+            
+            // Delay entre mensajes múltiples
+            if (i > 0) {
+              await messageHandler.delay(600);
+            }
+            
+            ws.send(JSON.stringify(singleResponse));
+            console.log(`[WS] 📤 Sent response ${i + 1}/${response.length}:`, {
+              messageId: singleResponse.messageId,
+              type: singleResponse.type,
+              body: singleResponse.message[0]?.cInfo?.body?.substring(0, 50) + '...'
+            });
+          }
+        } else {
+          // Enviar respuesta simple
+          ws.send(JSON.stringify(response));
+          console.log('[WS] 📤 Sent bot response:', {
+            messageId: response.messageId,
+            type: response.type,
+            body: response.message[0]?.cInfo?.body?.substring(0, 50) + '...'
+          });
+        }
       }
     } catch (error) {
       console.error('[WS] ❌ Error processing message:', error);
@@ -378,14 +455,58 @@ wss.on('connection', (ws) => {
   });
 
   // Manejar cierre de conexión
-  ws.on('close', () => {
-    console.log('[WS] 🔌 Client disconnected');
+  ws.on('close', (code, reason) => {
+    const duration = Date.now() - new Date(ws.connectionTime).getTime();
+    const durationSeconds = (duration / 1000).toFixed(2);
+    
+    connectionStats.active--;
+    connectionStats.closed++;
+    
+    console.log('[WS] 🔌 Connection closed:', {
+      ip: ws.clientIp,
+      code: code,
+      reason: reason.toString() || 'No reason provided',
+      duration: `${durationSeconds}s`,
+      closedBy: code === 1000 ? 'Client (normal)' : 
+                code === 1001 ? 'Client (going away)' :
+                code === 1006 ? 'Abnormal (timeout or network)' :
+                code === 1011 ? 'Server (error)' :
+                `Unknown (code: ${code})`,
+      activeConnections: connectionStats.active,
+      totalClosed: connectionStats.closed
+    });
   });
 
   // Manejar errores
   ws.on('error', (error) => {
-    console.error('[WS] ❌ WebSocket error:', error);
+    connectionStats.errors++;
+    console.error('[WS] ❌ WebSocket error:', {
+      ip: ws.clientIp,
+      error: error.message,
+      code: error.code,
+      totalErrors: connectionStats.errors
+    });
   });
+});
+
+// ===== KEEPALIVE - Prevenir cierres por inactividad =====
+const keepAliveInterval = setInterval(() => {
+  wss.clients.forEach((ws) => {
+    if (ws.isAlive === false) {
+      console.log('[WS] ⚠️ Client not responding to ping, terminating:', {
+        ip: ws.clientIp
+      });
+      return ws.terminate();
+    }
+
+    ws.isAlive = false;
+    ws.ping();
+    // console.log('[WS] 🏓 Sent keepalive ping'); // Comentado para no saturar logs
+  });
+}, 30000); // Cada 30 segundos
+
+wss.on('close', () => {
+  clearInterval(keepAliveInterval);
 });
 
 // Graceful shutdown

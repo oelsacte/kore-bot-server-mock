@@ -50,6 +50,111 @@
           }
         }
       }]
+    },
+    "bienvenida": {
+      "type": "bot_response",
+      "from": "bot",
+      "message": [{
+        "type": "text",
+        "component": {
+          "type": "text",
+          "payload": {
+            "text": "¡Hola! ✋ Soy Banamex tu Agente Virtual.\n \nPor seguridad <b>no compartas tu información personal en el chat.</b>\n \nTe comparto nuestro [Aviso de Privacidad](https://www.banamex.com/es/privacidad_portal.htm) para que puedas revisarlo.\n \n¿En qué puedo ayudarte? 🙂"
+          }
+        },
+        "cInfo": {
+          "body": "¡Hola! ✋ Soy Banamex tu Agente Virtual.\n \nPor seguridad <b>no compartas tu información personal en el chat.</b>\n \nTe comparto nuestro [Aviso de Privacidad](https://www.banamex.com/es/privacidad_portal.htm) para que puedas revisarlo.\n \n¿En qué puedo ayudarte? 🙂"
+        }
+      }]
+    },
+    "temasFrecuentes": {
+      "type": "bot_response",
+      "from": "bot",
+      "message": [{
+        "type": "text",
+        "component": {
+          "type": "template",
+          "payload": {
+            "type": "template",
+            "payload": {
+              "template_type": "fqsTemplate",
+              "text": "Aquí­ tienes algunos temas en los que puedo asesorarte:",
+              "elements": [
+                {
+                  "title": "Problemas de acceso",
+                  "value": "problemas_acceso"
+                },
+                {
+                  "title": "Información de Netkey",
+                  "value": "netkey"
+                },
+                {
+                  "title": "Sucursales y cajeros",
+                  "value": "sucursales"
+                },
+                {
+                  "title": "Conoce los productos",
+                  "value": "tarjeta_credito"
+                }
+              ]
+            }
+          }
+        },
+        "cInfo": {
+          "body": "{\"type\":\"template\",\"payload\":{\"template_type\":\"fqsTemplate\",\"text\":\"Aquí­ tienes algunos temas en los que puedo asesorarte:\",\"elements\":[{\"title\":\"Problemas de acceso\",\"value\":\"problemas_acceso\"},{\"title\":\"Información de Netkey\",\"value\":\"netkey\"},{\"title\":\"Sucursales y cajeros\",\"value\":\"sucursales\"},{\"title\":\"Conoce los productos\",\"value\":\"tarjeta_credito\"}]}}"
+        }
+      }]
+    },
+    "carruselMock": {
+      "type": "bot_response",
+      "from": "bot",
+      "message": [{
+        "type": "text",
+        "cInfo": {
+          "body": "[PLACEHOLDER] Aquí irá la respuesta del carrusel que me pasarás después.",
+          "attachments": []
+        },
+        "component": {
+          "type": "text",
+          "payload": {
+            "text": "[PLACEHOLDER] Aquí irá la respuesta del carrusel que me pasarás después."
+          }
+        }
+      }]
+    },
+    "listaFaqMock": {
+      "type": "bot_response",
+      "from": "bot",
+      "message": [{
+        "type": "text",
+        "cInfo": {
+          "body": "[PLACEHOLDER] Aquí irá la respuesta de lista FAQ que me pasarás después.",
+          "attachments": []
+        },
+        "component": {
+          "type": "text",
+          "payload": {
+            "text": "[PLACEHOLDER] Aquí irá la respuesta de lista FAQ que me pasarás después."
+          }
+        }
+      }]
+    },
+    "videoMock": {
+      "type": "bot_response",
+      "from": "bot",
+      "message": [{
+        "type": "text",
+        "cInfo": {
+          "body": "[PLACEHOLDER] Aquí irá la respuesta con video que me pasarás después.",
+          "attachments": []
+        },
+        "component": {
+          "type": "text",
+          "payload": {
+            "text": "[PLACEHOLDER] Aquí irá la respuesta con video que me pasarás después."
+          }
+        }
+      }]
     }
   },
   "templates": {
@@ -234,8 +339,17 @@
     "lista": "templates.list",
     "list": "templates.list",
     "carousel": "templates.carousel",
-    "carrusel": "templates.carousel",
-    "tarjetas": "templates.carousel"
+    "tarjetas": "templates.carousel",
+    "bienvenida": "multiResponse.bienvenida",
+    "carrusel": "defaultResponses.carruselMock",
+    "listafaq": "defaultResponses.listaFaqMock",
+    "video": "defaultResponses.videoMock"
+  },
+  "multiResponse": {
+    "bienvenida": [
+      "defaultResponses.bienvenida",
+      "defaultResponses.temasFrecuentes"
+    ]
   },
   "sequentialResponses": [
     {

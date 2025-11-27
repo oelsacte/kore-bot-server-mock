@@ -42,6 +42,7 @@ class MessageHandler {
   /**
    * Busca una respuesta basada en palabras clave
    * @param {string} text - Texto del mensaje del usuario
+   * @returns {object|array|null} - Respuesta simple, array de respuestas múltiples, o null
    */
   findKeywordResponse(text) {
     if (!text) return null;
@@ -51,13 +52,34 @@ class MessageHandler {
     
     // Busca coincidencia exacta primero
     if (keywords[lowerText]) {
-      return this.getResponseByPath(keywords[lowerText]);
+      const responsePath = keywords[lowerText];
+      
+      // Verifica si es una respuesta múltiple
+      if (responsePath.startsWith('multiResponse.')) {
+        const multiResponses = this.getResponseByPath(responsePath);
+        if (Array.isArray(multiResponses)) {
+          // Retorna array de respuestas resueltas
+          return multiResponses.map(path => this.getResponseByPath(path)).filter(r => r !== null);
+        }
+      }
+      
+      return this.getResponseByPath(responsePath);
     }
     
     // Busca coincidencia parcial
     for (const keyword in keywords) {
       if (lowerText.includes(keyword)) {
-        return this.getResponseByPath(keywords[keyword]);
+        const responsePath = keywords[keyword];
+        
+        // Verifica si es una respuesta múltiple
+        if (responsePath.startsWith('multiResponse.')) {
+          const multiResponses = this.getResponseByPath(responsePath);
+          if (Array.isArray(multiResponses)) {
+            return multiResponses.map(path => this.getResponseByPath(path)).filter(r => r !== null);
+          }
+        }
+        
+        return this.getResponseByPath(responsePath);
       }
     }
     
@@ -80,6 +102,7 @@ class MessageHandler {
   /**
    * Procesa un mensaje del usuario y genera una respuesta apropiada
    * @param {object} userMessage - Mensaje recibido del usuario
+   * @returns {object|array} - Respuesta simple o array de respuestas múltiples
    */
   processMessage(userMessage) {
     let responseTemplate = null;
@@ -92,6 +115,17 @@ class MessageHandler {
     // Si no se encontró respuesta por palabra clave, usa respuesta por defecto
     if (!responseTemplate) {
       responseTemplate = this.responsesConfig.defaultResponses.default;
+    }
+    
+    // Si es un array de respuestas múltiples, procesar cada una
+    if (Array.isArray(responseTemplate)) {
+      return responseTemplate.map(template => {
+        const response = JSON.parse(JSON.stringify(template));
+        response.messageId = this.generateMessageId();
+        response.createdOn = new Date().toISOString();
+        response.icon = userMessage.botInfo?.icon || 'https://via.placeholder.com/40';
+        return response;
+      });
     }
     
     // Clona la respuesta para no modificar el original
