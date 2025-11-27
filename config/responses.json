@@ -105,6 +105,44 @@
         }
       }]
     },
+    "temasFrecuentesSolo": {
+      "type": "bot_response",
+      "from": "bot",
+      "message": [{
+        "type": "text",
+        "component": {
+          "type": "template",
+          "payload": {
+            "type": "template",
+            "payload": {
+              "template_type": "fqsTemplate",
+              "text": "Aquí­ tienes algunos temas en los que puedo asesorarte:",
+              "elements": [
+                {
+                  "title": "Problemas de acceso",
+                  "value": "problemas_acceso"
+                },
+                {
+                  "title": "Información de Netkey",
+                  "value": "netkey"
+                },
+                {
+                  "title": "Sucursales y cajeros",
+                  "value": "sucursales"
+                },
+                {
+                  "title": "Conoce los productos",
+                  "value": "tarjeta_credito"
+                }
+              ]
+            }
+          }
+        },
+        "cInfo": {
+          "body": "{\"type\":\"template\",\"payload\":{\"template_type\":\"fqsTemplate\",\"text\":\"Aquí­ tienes algunos temas en los que puedo asesorarte:\",\"elements\":[{\"title\":\"Problemas de acceso\",\"value\":\"problemas_acceso\"},{\"title\":\"Información de Netkey\",\"value\":\"netkey\"},{\"title\":\"Sucursales y cajeros\",\"value\":\"sucursales\"},{\"title\":\"Conoce los productos\",\"value\":\"tarjeta_credito\"}]}}"
+        }
+      }]
+    },
     "carruselMock": {
       "type": "bot_response",
       "from": "bot",
@@ -343,7 +381,10 @@
     "bienvenida": "multiResponse.bienvenida",
     "carrusel": "defaultResponses.carruselMock",
     "listafaq": "defaultResponses.listaFaqMock",
-    "video": "defaultResponses.videoMock"
+    "video": "defaultResponses.videoMock",
+    "temas frecuentes": "defaultResponses.temasFrecuentesSolo",
+    "temasfrecuentes": "defaultResponses.temasFrecuentesSolo",
+    "temas": "defaultResponses.temasFrecuentesSolo"
   },
   "multiResponse": {
     "bienvenida": [
