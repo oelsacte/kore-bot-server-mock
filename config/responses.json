@@ -165,15 +165,106 @@
       "from": "bot",
       "message": [{
         "type": "text",
-        "cInfo": {
-          "body": "[PLACEHOLDER] Aquí irá la respuesta de lista FAQ que me pasarás después.",
-          "attachments": []
-        },
         "component": {
-          "type": "text",
+          "type": "template",
           "payload": {
-            "text": "[PLACEHOLDER] Aquí irá la respuesta de lista FAQ que me pasarás después."
+            "type": "template",
+            "AlwaysShowGlobalButtons": false,
+            "payload": {
+              "text": "Estas son algunas opciones en las que puedo ayudarte:",
+              "template_type": "lista_fqs",
+              "elements": [
+                {
+                  "title": "",
+                  "image_url": "",
+                  "subtitle": "",
+                  "default_action": {},
+                  "buttons": [
+                    {
+                      "title": "¿En dónde puedo consultar mi número de cliente desde BancaNet?",
+                      "payload": "¿En dónde puedo consultar mi número de cliente desde BancaNet?",
+                      "type": "web_url",
+                      "url": "",
+                      "messenger_extensions": true,
+                      "webview_height_ratio": "",
+                      "fallback_url": ""
+                    }
+                  ]
+                },
+                {
+                  "title": "",
+                  "image_url": "",
+                  "subtitle": "",
+                  "default_action": {},
+                  "buttons": [
+                    {
+                      "title": "¿Cómo ingreso a BancaNet?",
+                      "payload": "¿Cómo ingreso a BancaNet?",
+                      "type": "web_url",
+                      "url": "",
+                      "messenger_extensions": true,
+                      "webview_height_ratio": "",
+                      "fallback_url": ""
+                    }
+                  ]
+                },
+                {
+                  "title": "",
+                  "image_url": "",
+                  "subtitle": "",
+                  "default_action": {},
+                  "buttons": [
+                    {
+                      "title": "¿Cómo ingreso por primera vez a la App Banamex?",
+                      "payload": "¿Cómo ingreso por primera vez a la App Banamex?",
+                      "type": "web_url",
+                      "url": "",
+                      "messenger_extensions": true,
+                      "webview_height_ratio": "",
+                      "fallback_url": ""
+                    }
+                  ]
+                },
+                {
+                  "title": "",
+                  "image_url": "",
+                  "subtitle": "",
+                  "default_action": {},
+                  "buttons": [
+                    {
+                      "title": "¿Dónde está mi número de cliente?",
+                      "payload": "¿Dónde está mi número de cliente?",
+                      "type": "web_url",
+                      "url": "",
+                      "messenger_extensions": true,
+                      "webview_height_ratio": "",
+                      "fallback_url": ""
+                    }
+                  ]
+                },
+                {
+                  "title": "",
+                  "image_url": "",
+                  "subtitle": "",
+                  "default_action": {},
+                  "buttons": [
+                    {
+                      "title": "¿Qué puedo hacer si olvidé mi clave de acceso de BancaNet?",
+                      "payload": "¿Qué puedo hacer si olvidé mi clave de acceso de BancaNet?",
+                      "type": "web_url",
+                      "url": "",
+                      "messenger_extensions": true,
+                      "webview_height_ratio": "",
+                      "fallback_url": ""
+                    }
+                  ]
+                }
+              ]
+            }
           }
+        },
+        "cInfo": {
+          "body": "{\"type\":\"template\",\"AlwaysShowGlobalButtons\":false,\"payload\":{\"text\":\"Estas son algunas opciones en las que puedo ayudarte:\",\"template_type\":\"lista_fqs\",\"elements\":[{\"title\":\"\",\"image_url\":\"\",\"subtitle\":\"\",\"default_action\":{},\"buttons\":[{\"title\":\"¿En dónde puedo consultar mi número de cliente desde BancaNet?\",\"payload\":\"¿En dónde puedo consultar mi número de cliente desde BancaNet?\",\"type\":\"web_url\",\"url\":\"\",\"messenger_extensions\":true,\"webview_height_ratio\":\"\",\"fallback_url\":\"\"}]},{\"title\":\"\",\"image_url\":\"\",\"subtitle\":\"\",\"default_action\":{},\"buttons\":[{\"title\":\"¿Cómo ingreso a BancaNet?\",\"payload\":\"¿Cómo ingreso a BancaNet?\",\"type\":\"web_url\",\"url\":\"\",\"messenger_extensions\":true,\"webview_height_ratio\":\"\",\"fallback_url\":\"\"}]},{\"title\":\"\",\"image_url\":\"\",\"subtitle\":\"\",\"default_action\":{},\"buttons\":[{\"title\":\"¿Cómo ingreso por primera vez a la App Banamex?\",\"payload\":\"¿Cómo ingreso por primera vez a la App Banamex?\",\"type\":\"web_url\",\"url\":\"\",\"messenger_extensions\":true,\"webview_height_ratio\":\"\",\"fallback_url\":\"\"}]},{\"title\":\"\",\"image_url\":\"\",\"subtitle\":\"\",\"default_action\":{},\"buttons\":[{\"title\":\"¿Dónde está mi número de cliente?\",\"payload\":\"¿Dónde está mi número de cliente?\",\"type\":\"web_url\",\"url\":\"\",\"messenger_extensions\":true,\"webview_height_ratio\":\"\",\"fallback_url\":\"\"}]},{\"title\":\"\",\"image_url\":\"\",\"subtitle\":\"\",\"default_action\":{},\"buttons\":[{\"title\":\"¿Qué puedo hacer si olvidé mi clave de acceso de BancaNet?\",\"payload\":\"¿Qué puedo hacer si olvidé mi clave de acceso de BancaNet?\",\"type\":\"web_url\",\"url\":\"\",\"messenger_extensions\":true,\"webview_height_ratio\":\"\",\"fallback_url\":\"\"}]}]}}"
         }
       }]
     },
@@ -374,7 +465,7 @@
     "opciones": "templates.buttons",
     "quick": "templates.quickReplies",
     "rapido": "templates.quickReplies",
-    "lista": "templates.list",
+    "lista": "defaultResponses.listaFaqMock",
     "list": "templates.list",
     "carousel": "templates.carousel",
     "tarjetas": "templates.carousel",
