@@ -284,6 +284,224 @@
           }
         }
       }]
+    },
+    "listaMuyLarga": {
+      "type": "bot_response",
+      "from": "bot",
+      "message": [
+        {
+          "type": "text",
+          "component": {
+            "type": "template",
+            "payload": {
+              "type": "template",
+              "AlwaysShowGlobalButtons": false,
+              "payload": {
+                "text": "Alguna de las siguientes opciones te podrían ayudar:",
+                "template_type": "lista_fqs",
+                "elements": [
+                  {
+                    "title": "",
+                    "image_url": "",
+                    "subtitle": "",
+                    "default_action": {},
+                    "buttons": [
+                      {
+                        "title": "¿Cómo ingreso a BancaNet?",
+                        "payload": "¿Cómo ingreso a BancaNet?",
+                        "type": "web_url",
+                        "url": "",
+                        "messenger_extensions": true,
+                        "webview_height_ratio": "",
+                        "fallback_url": ""
+                      }
+                    ]
+                  },
+                  {
+                    "title": "",
+                    "image_url": "",
+                    "subtitle": "",
+                    "default_action": {},
+                    "buttons": [
+                      {
+                        "title": "¿Necesito NetKey para ingresar a BancaNet?",
+                        "payload": "¿Necesito NetKey para ingresar a BancaNet?",
+                        "type": "web_url",
+                        "url": "",
+                        "messenger_extensions": true,
+                        "webview_height_ratio": "",
+                        "fallback_url": ""
+                      }
+                    ]
+                  },
+                  {
+                    "title": "",
+                    "image_url": "",
+                    "subtitle": "",
+                    "default_action": {},
+                    "buttons": [
+                      {
+                        "title": "¿Qué es un beneficiario en BancaNet?",
+                        "payload": "¿Qué es un beneficiario en BancaNet?",
+                        "type": "web_url",
+                        "url": "",
+                        "messenger_extensions": true,
+                        "webview_height_ratio": "",
+                        "fallback_url": ""
+                      }
+                    ]
+                  },
+                  {
+                    "title": "",
+                    "image_url": "",
+                    "subtitle": "",
+                    "default_action": {},
+                    "buttons": [
+                      {
+                        "title": "¿Qué es personalizar cuentas en BancaNet?",
+                        "payload": "¿Qué es personalizar cuentas en BancaNet?",
+                        "type": "web_url",
+                        "url": "",
+                        "messenger_extensions": true,
+                        "webview_height_ratio": "",
+                        "fallback_url": ""
+                      }
+                    ]
+                  },
+                  {
+                    "title": "",
+                    "image_url": "",
+                    "subtitle": "",
+                    "default_action": {},
+                    "buttons": [
+                      {
+                        "title": "¿Cómo me registro en BancaNet?",
+                        "payload": "¿Cómo me registro en BancaNet?",
+                        "type": "web_url",
+                        "url": "",
+                        "messenger_extensions": true,
+                        "webview_height_ratio": "",
+                        "fallback_url": ""
+                      }
+                    ]
+                  },
+                  {
+                    "title": "",
+                    "image_url": "",
+                    "subtitle": "",
+                    "default_action": {},
+                    "buttons": [
+                      {
+                        "title": "¿Tiene costo contratar BancaNet?",
+                        "payload": "¿Tiene costo contratar BancaNet?",
+                        "type": "web_url",
+                        "url": "",
+                        "messenger_extensions": true,
+                        "webview_height_ratio": "",
+                        "fallback_url": ""
+                      }
+                    ]
+                  },
+                  {
+                    "title": "",
+                    "image_url": "",
+                    "subtitle": "",
+                    "default_action": {},
+                    "buttons": [
+                      {
+                        "title": "¿Cómo funciona BancaNet?",
+                        "payload": "¿Cómo funciona BancaNet?",
+                        "type": "web_url",
+                        "url": "",
+                        "messenger_extensions": true,
+                        "webview_height_ratio": "",
+                        "fallback_url": ""
+                      }
+                    ]
+                  },
+                  {
+                    "title": "",
+                    "image_url": "",
+                    "subtitle": "",
+                    "default_action": {},
+                    "buttons": [
+                      {
+                        "title": "¿Qué documentos necesito para contratar BancaNet?",
+                        "payload": "¿Qué documentos necesito para contratar BancaNet?",
+                        "type": "web_url",
+                        "url": "",
+                        "messenger_extensions": true,
+                        "webview_height_ratio": "",
+                        "fallback_url": ""
+                      }
+                    ]
+                  },
+                  {
+                    "title": "",
+                    "image_url": "",
+                    "subtitle": "",
+                    "default_action": {},
+                    "buttons": [
+                      {
+                        "title": "¿Qué es BancaNet?",
+                        "payload": "¿Qué es BancaNet?",
+                        "type": "web_url",
+                        "url": "",
+                        "messenger_extensions": true,
+                        "webview_height_ratio": "",
+                        "fallback_url": ""
+                      }
+                    ]
+                  },
+                  {
+                    "title": "",
+                    "image_url": "",
+                    "subtitle": "",
+                    "default_action": {},
+                    "buttons": [
+                      {
+                        "title": "¿En dónde contrato BancaNet?",
+                        "payload": "¿En dónde contrato BancaNet?",
+                        "type": "web_url",
+                        "url": "",
+                        "messenger_extensions": true,
+                        "webview_height_ratio": "",
+                        "fallback_url": ""
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "cInfo": {
+            "body": "Seleccione una opción de FAQGenerales_V9.1. \r\n\r\n a) ¿Cómo ingreso a BancaNet? \r\n b) ¿Necesito NetKey para ingresar a BancaNet? \r\n c) ¿Qué es un beneficiario en BancaNet? \r\n d) ¿Qué es personalizar cuentas en BancaNet? \r\n e) ¿Cómo me registro en BancaNet? \r\n f) ¿Tiene costo contratar BancaNet? \r\n g) ¿Cómo funciona BancaNet? \r\n h) ¿Qué documentos necesito para contratar BancaNet? \r\n i) ¿Qué es BancaNet? \r\n j) ¿En dónde contrato BancaNet? \r\n"
+          }
+        }
+      ],
+      "messageId": "ms-ea1396eb-37fc-5bad-9c6f-1df00ab3bac5",
+      "sessionId": "692e14d2fa4eb9fa5faf39b5",
+      "botInfo": {
+        "chatBot": "Concentrador_V9.1",
+        "taskBotId": "st-2dcd3bfe-98ae-5332-8267-856ea4b2059b",
+        "customData": {
+          "canallnt": "Bancanet",
+          "tipo": "Usuario",
+          "nombre": "Marco Leyva",
+          "plataforma": "sdk"
+        },
+        "hostDomain": "https://conversationalbanking.banamex.com",
+        "os": "Windows",
+        "device": "Other",
+        "currentLinkedBotId": "st-6921bd1b-ca23-54e0-a9ed-72dd2cab5e54",
+        "currentLinkedBotName": "FlujoGeneral_V9.1",
+        "userId": "u-232487e3-eae8-5806-977b-e7d09887fbd0"
+      },
+      "createdOn": "2025-12-01T22:22:48.756Z",
+      "xTraceId": "5f23e24d-4fa5-4d1f-b35d-726e729303a4",
+      "icon": "https://koremxprod1.lac.nsroot.net/api/getMediaStream/market/f-c1a880c1-89ce-5a46-b0bb-b10a4d8f473b.png?n=891887610&s=IlNKd05vbk9jU0FLazhTOTBmaHNwcWlETHZwVE5rcUgwYVU4NmVweW1oMDg9Ig$$",
+      "traceId": "8f1228b5eff4660f",
+      "timestamp": 1764627768808
     }
   },
   "templates": {
@@ -475,7 +693,8 @@
     "video": "defaultResponses.videoMock",
     "temas frecuentes": "defaultResponses.temasFrecuentesSolo",
     "temasfrecuentes": "defaultResponses.temasFrecuentesSolo",
-    "temas": "defaultResponses.temasFrecuentesSolo"
+    "temas": "defaultResponses.temasFrecuentesSolo",
+    "muylarga": "defaultResponses.listaMuyLarga"
   },
   "multiResponse": {
     "bienvenida": [
