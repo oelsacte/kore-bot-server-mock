@@ -166,6 +166,54 @@ app.post('/api/oAuth/token/jwtgrant', (req, res) => {
 });
 
 /**
+ * Endpoint para JWT Grant con STS (Security Token Service)
+ */
+app.post('/api/oAuth/token/jwtgrant/users/sts', (req, res) => {
+  console.log('[REST] JWT Grant STS request received');
+  console.log('[REST] Request body:', {
+    clientId: req.body?.clientId ? 'presente' : 'ausente',
+    clientSecret: req.body?.clientSecret ? 'presente' : 'ausente',
+    assertion: req.body?.assertion ? 'presente' : 'ausente'
+  });
+  
+  // Validar credenciales si está habilitado
+  if (CONFIG.validateCredentials) {
+    if (!req.body?.clientId || !req.body?.clientSecret) {
+      console.log('[REST] ❌ Missing clientId or clientSecret');
+      return res.status(401).json({
+        errors: [{
+          msg: 'Missing credentials',
+          code: 'MISSING_CREDENTIALS'
+        }]
+      });
+    }
+    
+    if (CONFIG.strictMode) {
+      if (req.body.clientId !== VALID_CREDENTIALS.clientId || 
+          req.body.clientSecret !== VALID_CREDENTIALS.clientSecret) {
+        console.log('[REST] ❌ Invalid credentials');
+        return res.status(401).json({
+          errors: [{
+            msg: 'Invalid clientId or clientSecret',
+            code: 'INVALID_CREDENTIALS'
+          }]
+        });
+      }
+    }
+    
+    console.log('[REST] ✅ Credentials validated');
+  }
+  
+  console.log('[REST] ✅ JWT Grant STS successful - returning token and bot info');
+  res.json({
+    jwt: MOCK_JWT_TOKEN,
+    streamId: MOCK_BOT_ID,
+    botName: "Mock Bot",
+    botsUrl: "https://bots.kore.ai"
+  });
+});
+
+/**
  * Endpoint para iniciar RTM (Real-Time Messaging) - retorna WebSocket URL
  */
 app.post('/api/rtm/start', (req, res) => {
@@ -333,6 +381,7 @@ const httpServer = app.listen(HTTP_PORT, () => {
   console.log('💡 Endpoints disponibles:');
   console.log(`   POST http://localhost:${HTTP_PORT}/api/users/login`);
   console.log(`   POST http://localhost:${HTTP_PORT}/api/oAuth/token/jwtgrant`);
+  console.log(`   POST http://localhost:${HTTP_PORT}/api/oAuth/token/jwtgrant/users/sts`);
   console.log(`   POST http://localhost:${HTTP_PORT}/api/rtm/start`);
   console.log(`   GET  http://localhost:${HTTP_PORT}/api/chat/history`);
   console.log(`   GET  http://localhost:${HTTP_PORT}/api/websdkthemes/:botId/activetheme`);
